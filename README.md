@@ -25,7 +25,7 @@ A similar, romantic accident appears in the song \emph{Empurple}, which uses a s
 
 ## Visual Comparison
 
-The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt.
+The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt: a woman smile.
 
 | Original DMD2 | EMPURPLE with cached middle latent |
 | --- | --- |
