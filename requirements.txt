@@ -1,0 +1,12 @@
+tqdm
+einops
+pytorch_lightning
+accelerate
+torchsde
+pycocotools
+diffusers
+timm
+transformers
+opencv-python
+omegaconf
+peft
