@@ -23,21 +23,22 @@ The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-10
 | --- | --- |
 | ![Original DMD2 result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/original_dmd2_grid.png) | ![EMPURPLE result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/augment_cached_middle_latent_grid.png) |
 
-The comparison highlights the intended effect of EMPURPLE: keep the realism benefits of few-step sampling while recovering richer variation and better feature preservation.
+The comparison highlights the intended effect of EMPURPLE: recovering richer variation without additional training.
+
+## Algorithm Intuition
+
+The figure below summarizes the motivation behind EMPURPLE. The upper row show the behaviour of the original diffusion model, which generate bulrred image and then use deterministic transformation to get the next noisy image. While the lower row show the origianl distillation algorithm, where random noise destroys details of the predict image.  The blurred image has lower information, and it's an easier task, while the lower row is a more difficult task and has bigger test-training gap.  The test-training gap in the output will affect the next step input, let the next step input out-of-distribution.
+
+Meanwhile, I want to briefly connects PAC-style analyze to a classic religious debate. ``Probatio diabolica'' argues that: finding a demon can prove the existence of a demon, but failing to find a demon in daily life is not evidence of the nonexistence of the demon. Analogously, a law like $F=ma$ can fit all daily observations yet fail in an unseen corner case.  Fail to find the demon in the classic mechanism dosn't mean the demon not exists. In PAC terms, many hypotheses can explain the observed data; the question is why we should trust a particular one to generalize. The usual answer is simplicity through constraint. By restricting the hypothesis class (e.g., discouraging overly complex functions), we trade expressiveness for robustness. Actually, probatio diabolica also just discuss a very abstract problem, and it unintentionally relate to the classic mechanism.   
+
+A similar, romantic accident appears in the song Empurple, which uses a specific purple (\#664f8c) to create a melody (# 66 4 f 8 c) via the drum, a low-frequency musical instrument, and then it adds music with various frequency to further enhance the melody. Our method similarly reuses blurred color blocks and adds high-frequency detail later to generate a detailed image. 
 
 ## Overview
 
 Diffusion models achieve impressive image-generation quality but remain expensive at inference time. Diffusion distillation reduces sampling steps, yet many distilled models, including SDXL-Lightning and distribution matching distillation methods, suffer from degraded Fr\'echet Inception Distance (FID). We analyze this phenomenon through a PAC-style generalization bound. Our analysis suggests that aggressive early-step redirection of the velocity field makes the distillation target harder to learn, enlarging the train-test gap. As a result, early-step output distributions differ between training and inference, causing distribution mismatch in the intermediate noisy latent used as next-step inputs. We empirically validate this mechanism by showing reduced diversity in both intermediate features and final outputs. To address this issue, we propose EMPURPLE, a simple training-free method that recycles intermediate latents sampled from the original model. EMPURPLE is model-agnostic and improves FID by 7\% to 20\% across DMD2, Hyper-SD, FlashSD, and SDXL-Lightning.
 
-In the provided demos, EMPURPLE can improve FID by up to 20% without introducing an extra training stage.
+In the provided demos （DMD2）, EMPURPLE can improve FID 20% without introducing an extra training stage.
 
-## Algorithm Intuition
-
-The figure below summarizes the motivation behind EMPURPLE. The upper path shows the desired behavior: We preserve useful features and keep the inference problem easy. The lower path shows the origianl distillation algorithm, where random noise destroys details of the predict image and try to train a neural network to cope with a more difficult task in a meaningless way.
-
-I want to briefly connects PAC-style analyze to a classic religious debate. ``Probatio diabolica'' argues that: finding a demon can prove the existence of a demon, but failing to find a demon in daily life is not evidence of the nonexistence of the demon. Analogously, a law like $F=ma$ can fit all daily observations yet fail in an unseen corner case.  Fail to find the demon in the classic mechanism dosn't mean the demon not exists. In PAC terms, many hypotheses can explain the observed data; the question is why we should trust a particular one to generalize. The usual answer is simplicity through constraint. By restricting the hypothesis class (e.g., discouraging overly complex functions), we trade expressiveness for robustness. Actually, probatio diabolica also just discuss a very abstract problem, and it unintentionally relate to the classic mechanism.   
-
-A similar, romantic accident appears in the song \emph{Empurple}, which uses a specific purple (\#664f8c) to create a melody (# 66 4 f 8 c) via the drum, a low-frequency musical instrument, and then it adds music with various frequency to further enhance the melody. Our method similarly reuses blurred color blocks and adds high-frequency detail later to generate a detailed image. 
 
 <p align="center">
   <img src="./Empurple_FinalVer_01.png" alt="EMPURPLE algorithm overview" width="100%" />
