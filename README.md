@@ -33,16 +33,16 @@ Meanwhile, I want to briefly connects PAC-style analyze to a classic religious d
 
 A similar, romantic accident appears in the song Empurple, which uses a specific purple (\#664f8c) to create a melody (# 66 4 f 8 c) via the drum, a low-frequency musical instrument, and then it adds music with various frequency to further enhance the melody. Our method similarly reuses blurred color blocks and adds high-frequency detail later to generate a detailed image. 
 
+
+<p align="center">
+  <img src="./Empurple_FinalVer_01.png" alt="EMPURPLE algorithm overview" width="100%" />
+</p>
+
 ## Overview
 
 Diffusion models achieve impressive image-generation quality but remain expensive at inference time. Diffusion distillation reduces sampling steps, yet many distilled models, including SDXL-Lightning and distribution matching distillation methods, suffer from degraded Fr\'echet Inception Distance (FID). We analyze this phenomenon through a PAC-style generalization bound. Our analysis suggests that aggressive early-step redirection of the velocity field makes the distillation target harder to learn, enlarging the train-test gap. As a result, early-step output distributions differ between training and inference, causing distribution mismatch in the intermediate noisy latent used as next-step inputs. We empirically validate this mechanism by showing reduced diversity in both intermediate features and final outputs. To address this issue, we propose EMPURPLE, a simple training-free method that recycles intermediate latents sampled from the original model. EMPURPLE is model-agnostic and improves FID by 7\% to 20\% across DMD2, Hyper-SD, FlashSD, and SDXL-Lightning.
 
 In the provided demos （DMD2）, EMPURPLE can improve FID 20% without introducing an extra training stage.
-
-
-<p align="center">
-  <img src="./Empurple_FinalVer_01.png" alt="EMPURPLE algorithm overview" width="100%" />
-</p>
 
 ## Installation
 
