@@ -5,6 +5,12 @@
   EMPURPLE preserves informative middle-step features so distilled samplers can avoid unnecessary out-of-distribution drift.
 </p>
 
+<p align="center">
+  <a href="https://colab.research.google.com/drive/1DVw41J_7yzhBxRhhNeOsCFxz-ROZWHLw?usp=sharing">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
+  </a>
+</p>
+
 ## Overview
 
 Diffusion models achieve impressive image-generation quality but remain expensive at inference time. Diffusion distillation reduces sampling steps, yet many distilled models, including SDXL-Lightning and distribution matching distillation methods, suffer from degraded Fr\'echet Inception Distance (FID). We analyze this phenomenon through a PAC-style generalization bound. Our analysis suggests that aggressive early-step redirection of the velocity field makes the distillation target harder to learn, enlarging the train-test gap. As a result, early-step output distributions differ between training and inference, causing distribution mismatch in the intermediate noisy latent used as next-step inputs. We empirically validate this mechanism by showing reduced diversity in both intermediate features and final outputs. To address this issue, we propose EMPURPLE, a simple training-free method that recycles intermediate latents sampled from the original model. EMPURPLE is model-agnostic and improves FID by 7\% to 20\% across DMD2, Hyper-SD, FlashSD, and SDXL-Lightning.
@@ -25,7 +31,7 @@ A similar, romantic accident appears in the song \emph{Empurple}, which uses a s
 
 ## Visual Comparison
 
-The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt: a woman smile.
+The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt: a woman smile.  The result is from os: window 11, and the linux version can be view in the colab: https://colab.research.google.com/drive/1DVw41J_7yzhBxRhhNeOsCFxz-ROZWHLw?usp=sharing
 
 | Original DMD2 | EMPURPLE with cached middle latent |
 | --- | --- |
@@ -47,7 +53,11 @@ To choose a matching PyTorch build, check: https://pytorch.org/get-started/local
 
 ## Quick Start
 
-Run the fast demo first:
+For the simplest way to try EMPURPLE, open the ready-to-run Colab demo:
+
+[Open In Colab](https://colab.research.google.com/drive/1DVw41J_7yzhBxRhhNeOsCFxz-ROZWHLw?usp=sharing)
+
+Or Run the fast demo locally:
 
 ```bash
 python compare_dmd2_and_empurple_fast_demo.py
