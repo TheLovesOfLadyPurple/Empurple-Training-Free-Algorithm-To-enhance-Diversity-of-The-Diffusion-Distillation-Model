@@ -27,7 +27,7 @@ The comparison highlights the intended effect of EMPURPLE: recovering richer var
 
 ## Algorithm Intuition
 
-The figure below summarizes the motivation behind EMPURPLE. The upper row show the behaviour of the original diffusion model, which generate bulrred image and then use deterministic transformation to get the next noisy image. While the lower row show the origianl distillation algorithm, where random noise destroys details of the predict image.  The blurred image has lower information, and it's an easier task, while the lower row is a more difficult task and has bigger test-training gap.  The test-training gap in the output will affect the next step input, let the next step input out-of-distribution.
+The figure below summarizes the motivation behind EMPURPLE. The upper row show the behaviour of the original diffusion model, which generate bulrred image and then use deterministic transformation to get the next noisy image. While the lower row show the origianl distillation algorithm, where random noise destroys details of the predict image.  The blurred image has lower information, and it's an easier task, while the lower row is a more difficult task and has bigger test-training gap.  The test-training gap in the output will affect the next step input, let the next step input out-of-distribution.  We empirically validate the lack of the diversity on the noisy lantents and the final result given by the distillation inference.
 
 Meanwhile, I want to briefly connects PAC-style analyze to a classic religious debate. ``Probatio diabolica'' argues that: finding a demon can prove the existence of a demon, but failing to find a demon in daily life is not evidence of the nonexistence of the demon. Analogously, a law like $F=ma$ can fit all daily observations yet fail in an unseen corner case.  Fail to find the demon in the classic mechanism dosn't mean the demon not exists. In PAC terms, many hypotheses can explain the observed data; the question is why we should trust a particular one to generalize. The usual answer is simplicity through constraint. By restricting the hypothesis class (e.g., discouraging overly complex functions), we trade expressiveness for robustness. Actually, probatio diabolica also just discuss a very abstract problem, and it unintentionally relate to the classic mechanism.   
 
@@ -42,7 +42,7 @@ A similar, romantic accident appears in the song Empurple, which uses a specific
 
 Diffusion models achieve impressive image-generation quality but remain expensive at inference time. Diffusion distillation reduces sampling steps, yet many distilled models, including SDXL-Lightning and distribution matching distillation methods, suffer from degraded Fr\'echet Inception Distance (FID). We analyze this phenomenon through a PAC-style generalization bound. Our analysis suggests that aggressive early-step redirection of the velocity field makes the distillation target harder to learn, enlarging the train-test gap. As a result, early-step output distributions differ between training and inference, causing distribution mismatch in the intermediate noisy latent used as next-step inputs. We empirically validate this mechanism by showing reduced diversity in both intermediate features and final outputs. To address this issue, we propose EMPURPLE, a simple training-free method that recycles intermediate latents sampled from the original model. EMPURPLE is model-agnostic and improves FID by 7\% to 20\% across DMD2, Hyper-SD, FlashSD, and SDXL-Lightning.
 
-In the provided demos （DMD2）, EMPURPLE can improve FID 20% without introducing an extra training stage.
+For the DMD2 algorithm in the provided demos, EMPURPLE can improve FID 20% without introducing an extra training stage.
 
 ## Installation
 
@@ -70,7 +70,7 @@ python compare_dmd2_and_empurple_fast_demo.py
 
 Before running this COCO-based experiments, download `instances_train2014.json` and `captions_train2014.json` from the official COCO website.
 
-If you already have enough cached latent samples, use:
+If you already have enough cached latent samples, use the following demo:
 
 ```bash
 python compare_dmd2_random_latent_xl.py
