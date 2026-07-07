@@ -11,6 +11,20 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://arxiv.org/abs/2607.04276">[2607.04276] EMPURPLE: A Free Lunch for Diffusion Distillation based on the Information Bottleneck</a>
+</p>
+
+## Visual Comparison
+
+The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt: a woman smile.  The result is from os: window 11, and the linux version can be view in the colab: https://colab.research.google.com/drive/1DVw41J_7yzhBxRhhNeOsCFxz-ROZWHLw?usp=sharing
+
+| Original DMD2 | EMPURPLE with cached middle latent |
+| --- | --- |
+| ![Original DMD2 result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/original_dmd2_grid.png) | ![EMPURPLE result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/augment_cached_middle_latent_grid.png) |
+
+The comparison highlights the intended effect of EMPURPLE: keep the realism benefits of few-step sampling while recovering richer variation and better feature preservation.
+
 ## Overview
 
 Diffusion models achieve impressive image-generation quality but remain expensive at inference time. Diffusion distillation reduces sampling steps, yet many distilled models, including SDXL-Lightning and distribution matching distillation methods, suffer from degraded Fr\'echet Inception Distance (FID). We analyze this phenomenon through a PAC-style generalization bound. Our analysis suggests that aggressive early-step redirection of the velocity field makes the distillation target harder to learn, enlarging the train-test gap. As a result, early-step output distributions differ between training and inference, causing distribution mismatch in the intermediate noisy latent used as next-step inputs. We empirically validate this mechanism by showing reduced diversity in both intermediate features and final outputs. To address this issue, we propose EMPURPLE, a simple training-free method that recycles intermediate latents sampled from the original model. EMPURPLE is model-agnostic and improves FID by 7\% to 20\% across DMD2, Hyper-SD, FlashSD, and SDXL-Lightning.
@@ -28,16 +42,6 @@ A similar, romantic accident appears in the song \emph{Empurple}, which uses a s
 <p align="center">
   <img src="./Empurple_FinalVer_01.png" alt="EMPURPLE algorithm overview" width="100%" />
 </p>
-
-## Visual Comparison
-
-The following grids come from [gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile). The left column is the original DMD2 result, while the right column shows the EMPURPLE result produced with cached middle-latent augmentation.  Both of it use the same guidance prompt: a woman smile.  The result is from os: window 11, and the linux version can be view in the colab: https://colab.research.google.com/drive/1DVw41J_7yzhBxRhhNeOsCFxz-ROZWHLw?usp=sharing
-
-| Original DMD2 | EMPURPLE with cached middle latent |
-| --- | --- |
-| ![Original DMD2 result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/original_dmd2_grid.png) | ![EMPURPLE result grid](./gen_img_compare_dmd2_random_latent_xl/20260705-103647-a-woman-smile/augment_cached_middle_latent_grid.png) |
-
-The comparison highlights the intended effect of EMPURPLE: keep the realism benefits of few-step sampling while recovering richer variation and better feature preservation.
 
 ## Installation
 
